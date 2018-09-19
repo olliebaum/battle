@@ -1,0 +1,9 @@
+Player 1: <%= $p1.name %> <%= $p1.hp %> HP<br>
+Player 2: <%= $p2.name %> <%= $p2.hp %> HP
+
+<form action='/play' method='post'>
+  <input type='submit' value='Attack'>
+</form>
+
+
+<%=$p1.name%> attacks <%=$p2.name%> for 10 damage! #Make this a method of game
