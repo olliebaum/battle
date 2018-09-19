@@ -4,6 +4,7 @@ describe Game do
   let(:tom) { double(:mock_person) }
   let(:jim) { double(:mock_person) }
   subject { described_class.new(tom, jim) }
+  
   describe 'initialization' do
     it 'p1 & p2 are tom and jim' do
       expect(subject.p1).to eq(tom)

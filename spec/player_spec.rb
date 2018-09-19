@@ -3,6 +3,7 @@ require 'player'
 describe Player do
   let(:joe) { Player.new("Joe") }
   subject   { described_class.new("John") }
+  
   context '#initialize' do
     it 'returns its name' do
       expect(subject.name).to eq "John"

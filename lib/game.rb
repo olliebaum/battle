@@ -9,4 +9,6 @@ class Game
   def attack(attacker, victim)
     victim.deduct(10)
   end
+
+  # method for attack confirmation - "John attacks James for 10 damage!"
 end

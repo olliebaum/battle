@@ -3,13 +3,10 @@ class Player
 
   def initialize(name)
     @name = name
-    @hp   = 60
+    @hp   = 60  # refactor magic number as a class constant
   end
 
   def deduct(amount)
     @hp -= amount
   end
-
-  private
-  attr_writer :hp
 end

@@ -20,7 +20,7 @@ class Battle < Sinatra::Base
   post '/names' do
     session[:name1] = Player.new(params[:name1])
     session[:name2] = Player.new(params[:name2])
-    $p1 = session[:name1]
+    $p1 = session[:name1]  #should we stop using global variables??
     $p2 = session[:name2]
     $game = Game.new($p1, $p2)
     redirect to('/play')
@@ -28,7 +28,7 @@ class Battle < Sinatra::Base
 
   get '/play' do
     @hp_max = 60
-    @attack = session[:attack]
+    @attack = session[:attack] #decide on process for @attack and session[:attack] (true and false)
     if @attack
       $game.attack($p1, $p2)
       @attack = false
