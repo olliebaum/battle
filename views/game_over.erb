@@ -1,5 +1,13 @@
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="/style.css" type="text/css" >
+</head>
+
+<body>
 <h1> GAME OVER!!! </h1><br>
+<iframe src="https://giphy.com/embed/Y01jP8QeLOox2" width="480" height="349" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
 <h1><%= @game.players[@game.current_attacker - 1].name %> wins!!!</h1> <br><br>
 <form action='/' method='get'>
   <input type='submit' value='New game!'>
 </form>
+</body>

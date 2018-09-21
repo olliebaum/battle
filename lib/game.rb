@@ -9,7 +9,7 @@ class Game
 
   def attack(attacker, multiplier) # attacker is 0 or 1
     missed_go(@current_attacker, multiplier != 1)
-    attack_amount = ((multiplier ** 1.5) * rand(3..13)).to_i
+    attack_amount = ((multiplier ** 2) * rand(3..13)).to_i
     players[attacker - 1].deduct(attack_amount)
     switch_turns
     update_message_attack(attack_amount, multiplier != 1)
@@ -17,7 +17,7 @@ class Game
 
   def rest(attacker, multiplier) # attacker is 0 or 1
     missed_go(@current_attacker, multiplier != 1)
-    heal_amount = ((multiplier ** 2) * rand(3..13)).to_i
+    heal_amount = ((multiplier ** 1.5) * rand(3..13)).to_i
     players[attacker].add(heal_amount)
     switch_turns
     update_message_heal(heal_amount, multiplier != 1)

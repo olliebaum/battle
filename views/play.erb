@@ -1,10 +1,25 @@
-Player 1: <%= @game.players[0].name %> <%= @game.players[0].hp %> HP<br>
-Player 2: <%= @game.players[1].name %> <%= @game.players[1].hp %> HP<br><br>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="/style.css" type="text/css" >
+</head>
+
+<body>
+
+
+<h1>Player 1: <%= @game.players[0].name %> <%= @game.players[0].hp %> HP</h1><br>
+<div class="progress" style="margin: 0% 10%;">
+  <div class="progress-bar-danger progress-bar-striped active" role="progressbar" style="width: <%= ((@game.players[0].hp * 100)/60).to_i %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><p><%= ((@game.players[0].hp * 100)/60).to_i %>%</p></div>
+</div>
+
+<h1>Player 2: <%= @game.players[1].name %> <%= @game.players[1].hp %> HP</h1><br><br>
+<div class="progress" style="margin: 0% 10%;">
+  <div class="progress-bar-danger progress-bar-striped active" role="progressbar" style="width: <%= ((@game.players[1].hp * 100)/60).to_i %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><p><%= ((@game.players[1].hp * 100)/60).to_i %>%</p></div>
+</div><br>
 
 <% if @game.players[@game.current_attacker].missing_go[-1] %>
 <div>
-<%=@game.message.split('!')[0]%><br>
-<%= @game.players[@game.current_attacker].name %> misses their go! <%= @game.players[@game.current_attacker - 1].name %>'s go now!
+<h3><%=@game.message.split('!')[0]%><br>
+<%= @game.players[@game.current_attacker].name %> misses their go! <%= @game.players[@game.current_attacker - 1].name %>'s go now! </h3>
 <form action='/new_turn' method='post'>
   <input type='submit' value='Next turn!'>
 </form>
@@ -30,9 +45,11 @@ Player 2: <%= @game.players[1].name %> <%= @game.players[1].hp %> HP<br><br>
 </div>
 
 <% if @game.players[@game.current_attacker - 1].missing_go[-2] %>
-<%= @game.players[@game.current_attacker].name %>'s go now!
+<h3><%= @game.players[@game.current_attacker].name %>'s go now!</h3>
 <% else %>
-<%= @game.message %>
+<h3><%= @game.message %></h3>
 <% end %>
 <% end %>
 <%#make line below part of game class %>
+
+</body>
