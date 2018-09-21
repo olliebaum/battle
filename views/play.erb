@@ -1,9 +1,38 @@
-Player 1: <%= $p1.name %> <%= $p1.hp %> HP<br>
-Player 2: <%= $p2.name %> <%= $p2.hp %> HP
+Player 1: <%= @game.players[0].name %> <%= @game.players[0].hp %> HP<br>
+Player 2: <%= @game.players[1].name %> <%= @game.players[1].hp %> HP<br><br>
 
-<form action='/play' method='post'>
+<% if @game.players[@game.current_attacker].missing_go[-1] %>
+<div>
+<%=@game.message.split('!')[0]%><br>
+<%= @game.players[@game.current_attacker].name %> misses their go! <%= @game.players[@game.current_attacker - 1].name %>'s go now!
+<form action='/new_turn' method='post'>
+  <input type='submit' value='Next turn!'>
+</form>
+</div>
+
+<% else %>
+<div>
+<form action='/attack' method='post'>
   <input type='submit' value='Attack'>
 </form>
 
+<form action='/bigattack' method='post'>
+  <input type='submit' value='ATTACK!'>
+</form>
+
+<form action='/rest' method='post'>
+  <input type='submit' value='Rest'>
+</form>
+
+<form action='/bigrest' method='post'>
+  <input type='submit' value='REST!'>
+</form>
+</div>
+
+<% if @game.players[@game.current_attacker - 1].missing_go[-2] %>
+<%= @game.players[@game.current_attacker].name %>'s go now!
+<% else %>
+<%= @game.message %>
+<% end %>
+<% end %>
 <%#make line below part of game class %>
-<%=$p1.name%> attacks <%=$p2.name%> for 10 damage!

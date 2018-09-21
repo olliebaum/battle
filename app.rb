@@ -18,27 +18,52 @@ class Battle < Sinatra::Base
   end
 
   post '/names' do
-    session[:name1] = Player.new(params[:name1])
-    session[:name2] = Player.new(params[:name2])
-    $p1 = session[:name1]  #should we stop using global variables??
-    $p2 = session[:name2]
-    $game = Game.new($p1, $p2)
+    session[:game] = Game.new(Player.new(params[:name1]), Player.new(params[:name2]))
     redirect to('/play')
   end
 
   get '/play' do
-    @hp_max = 60
-    @attack = session[:attack] #decide on process for @attack and session[:attack] (true and false)
-    if @attack
-      $game.attack($p1, $p2)
-      @attack = false
-    end
+    @game = session[:game]
+    redirect to('/game_over') if @game.game_over?
     erb(:play)
   end
 
-  post '/play' do   # attacking
-    session[:attack] = true
+  post '/attack' do   # attacking
+    @game = session[:game]
+    @game.attack(@game.current_attacker, 1)
     redirect to('/play')
+  end
+
+  post '/bigattack' do   # attacking
+    @game = session[:game]
+    @game.attack(@game.current_attacker, 2)
+    session[:last_go_missed] = true
+    redirect to('/play')
+  end
+
+  post '/rest' do   # attacking
+    @game = session[:game]
+    @game.rest(@game.current_attacker, 1)
+    redirect to('/play')
+  end
+
+  post '/bigrest' do   # attacking
+    @game = session[:game]
+    @game.rest(@game.current_attacker, 2)
+    session[:last_go_missed] = true
+    redirect to('/play')
+  end
+
+  post '/new_turn' do   # attacking
+    @game = session[:game]
+    @game.missed_go(@game.current_attacker, false)
+    @game.switch_turns
+    redirect to('/play')
+  end
+
+  get '/game_over' do
+    @game = session[:game]
+    erb(:game_over)
   end
 
   run! if app_file == $0
